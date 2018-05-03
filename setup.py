@@ -10,7 +10,7 @@ setup(
     name='declic',
     version='1.0.0',
     py_modules=['declic'],
-    url='github',
+    url='https://github.com/Septaris/declic',
     license='MIT',
     author='S. Lion',
     author_email='sonny.lion@laposte.net',
