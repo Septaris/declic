@@ -7,11 +7,11 @@
 #
 #     @group(description='my description')
 #     @argument('--version', action='version', version='<the version>')
-#     @argument('--truc', type=int, default=1)
-#     def grp():
-#         print('grp')
+#     @argument('--foo', type=int, default=1)
+#     def bar():
+#         print('bar')
 #
-#     @grp.group(invokable=True)
+#     @bar.group(invokable=True)
 #     @argument('--toto', type=int, default=2)
 #     @argument('--tata', type=str, default='aaa')
 #     def sub_group(toto, tata):
@@ -23,14 +23,14 @@
 #         print(kwargs)
 #         print(toto)
 #
-#     @grp.command()
+#     @bar.command()
 #     @argument('-x', type=int, default=1)
 #     @argument('y', type=float)
 #     def foo(x, y):
 #         print(x, y)
 #
-#     grp()
-#     # or grp(sys.argv[1:])
+#     bar()
+#     # or bar(sys.argv[1:])
 
 import argparse
 import inspect
