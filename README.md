@@ -39,6 +39,8 @@ def mop(toto, **kwargs):
 @argument('y', type=float)
 def foo(x, y):
     print(x, y)
+
+
 if __name__ == '__main__':
     import sys
 
