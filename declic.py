@@ -1,37 +1,3 @@
-# Declic (DEcorator-oriented CLI Creator)
-#
-# Usage:
-#
-# if __name__ == '__main__':
-#     import sys
-#
-#     @group(description='my description')
-#     @argument('--version', action='version', version='<the version>')
-#     @argument('--foo', type=int, default=1)
-#     def bar():
-#         print('bar')
-#
-#     @bar.group(invokable=True)
-#     @argument('--toto', type=int, default=2)
-#     @argument('--tata', type=str, default='aaa')
-#     def sub_group(toto, tata):
-#         print(toto)
-#         print(tata)
-#
-#     @sub_group.command(chain=True)
-#     def mop(toto, **kwargs):
-#         print(kwargs)
-#         print(toto)
-#
-#     @bar.command()
-#     @argument('-x', type=int, default=1)
-#     @argument('y', type=float)
-#     def foo(x, y):
-#         print(x, y)
-#
-#     bar()
-#     # or bar(sys.argv[1:])
-
 import argparse
 import inspect
 
