@@ -6,6 +6,14 @@ decorators. It was inspired by the [click](http://click.pocoo.org/6/) package an
 
 ## Installation
 
+From PyPI:
+
+```
+pip install declic
+```
+
+or from Github:
+
 ```
 pip install git+https://github.com/Septaris/declic.git
 ```
