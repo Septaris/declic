@@ -8,7 +8,7 @@ with open(path.join(ROOT_DIR, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='declic',
-    version='1.0.0',
+    version='1.0.1',
     py_modules=['declic'],
     url='https://github.com/Septaris/declic',
     license='MIT',
