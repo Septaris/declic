@@ -16,6 +16,8 @@ Here is an example of Declic usage:
 
 ```python
 from declic import group, argument, command
+
+
 @group(description='my description')
 @argument('--version', action='version', version='<the version>')
 @argument('--foo', type=int, default=1)
@@ -51,6 +53,18 @@ if __name__ == '__main__':
 Running the cli:
 
 ```
-python my_file.py --help
+$ python my_file.py --help
+
+usage: bar [-h] [--foo FOO] [--version] {sub_group,foo} ...
+
+my description
+
+positional arguments:
+  {sub_group,foo}
+
+optional arguments:
+  -h, --help       show this help message and exit
+  --foo FOO
+  --version        show program's version number and exit
 ```
 
