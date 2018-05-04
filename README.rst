@@ -3,7 +3,7 @@ Declic
 
 Declic (DEcorator-oriented CLI Creator) is a tiny Python 3 package for
 creating command line interfaces using decorators. It was inspired by
-the `click`_ package and is based on `argparse`_
+the `click`_ package and is based on `argparse`_.
 
 Installation
 ------------
