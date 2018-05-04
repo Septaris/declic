@@ -14,8 +14,7 @@ setup(
     license='MIT',
     author='S. Lion',
     author_email='sonny.lion@laposte.net',
-    description='Declic (DEcorator-oriented CLI Creator) is a tiny Python 3 package for creating command line '
-                'interfaces using decorators. It was inspired by the click package and is based on argparse',
+    description='Declic (DEcorator-oriented CLI Creator) is a tiny Python 3 package for creating command line interfaces',
     long_description=long_description,
     long_description_content_type='text/x-rst'
 )
