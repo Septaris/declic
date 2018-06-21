@@ -25,41 +25,7 @@ Usage
 
 Here is an example of Declic usage:
 
-.. code:: python
-
-   from declic import group, argument, command
-
-
-   @group(description='my description')
-   @argument('--version', action='version', version='<the version>')
-   @argument('--foo', type=int, default=1)
-   def bar():
-       print('bar')
-
-   @bar.group(invokable=True)
-   @argument('--toto', type=int, default=2)
-   @argument('--tata', type=str, default='aaa')
-   def sub_group(toto, tata):
-       print(toto)
-       print(tata)
-
-   @sub_group.command(chain=True)
-   def mop(toto, **kwargs):
-       print(kwargs)
-       print(toto)
-
-   @bar.command()
-   @argument('-x', type=int, default=1)
-   @argument('y', type=float)
-   def foo(x, y):
-       print(x, y)
-
-
-   if __name__ == '__main__':
-       import sys
-
-       bar(sys.argv[1:])
-       # or bar()
+.. literalinclude:: example.py
 
 Running the cli:
 

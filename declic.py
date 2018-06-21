@@ -3,6 +3,7 @@ import inspect
 
 __all__ = ['command', 'group', 'argument', 'Group', 'Command']
 
+
 # patch add_parser to allow use of pre-existing parser
 def custom_add_parser(self, name, **kwargs):
     # set prog from the existing prefix
@@ -121,8 +122,16 @@ class Command(object):
             keywords = callback_argspec.args + callback_argspec.kwonlyargs
             return keywords
 
-    def callback(self, args_dict):
-        callback_keywords = self.get_func_keywords(self._callback)
+    def generic_callback(self, args_dict, callback_function):
+        """
+        Invoke a callback function with a filtered list of arguments to undefined argument issues
+
+        :param args_dict: unfiltered arguments
+        :param callback_function: Callback function
+        :return:
+        """
+
+        callback_keywords = self.get_func_keywords(callback_function)
 
         # if there are specific keywords for the callback function
         if callback_keywords is not None:
@@ -134,15 +143,25 @@ class Command(object):
 
         else:
             filtered_args_dict = args_dict
-        self._callback(**filtered_args_dict)
+        callback_function(**filtered_args_dict)
+
+    def callback(self, args_dict):
+        self.generic_callback(args_dict, self._callback)
+
+    def on_before(self, args_dict):
+        self.generic_callback(args_dict, self._on_before)
 
     def invoke(self, args):
-        # if chain mode is activated, call parents callbacks before command callback itself
         args_dict = vars(args)
 
-        if self.chain:
-            for parent in self.parents:
-                if parent._callback is not None:
+        # if chain mode is activated, call parents callbacks before command callback itself
+        for parent in self.parents:
+            # for each parent, call the on_before function if any
+            if parent.on_before is not None:
+                parent.on_before(args_dict)
+            # then call the callback function if chain mode is activated and if the parent is invokable
+            if parent._callback is not None:
+                if self.chain and parent.invokable:
                     parent.callback(args_dict)
 
         if self._callback is None:
@@ -162,14 +181,21 @@ class Command(object):
 
 
 class Group(Command):
-    def __init__(self, *args, invokable=False, **kwargs):
+    def __init__(self, *args, invokable=False, on_before=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.subparsers = self.parser.add_subparsers()
         self.commands = {}
         # this controls if the group command itself can be invoked
         self.invokable = invokable
 
+        # this function will be called before each invoke of the group
+        # even if the group is not invokable
+        self._on_before = on_before
+
     def invoke(self, args):
+        if self._on_before is not None:
+            self.on_before(vars(args))
+
         if self.invokable:
             super().invoke(args)
         else:
