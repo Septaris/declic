@@ -86,7 +86,7 @@ Running the cli:
    my description
 
    positional arguments:
-     {sub_group,foo}
+     {sub,foo}
 
    optional arguments:
      -h, --help       show this help message and exit
