@@ -91,8 +91,12 @@ class Command(object):
         for param_args, param_kwargs in params:
             self.add_argument(*param_args, **param_kwargs)
 
+        # check if the reserved argument '__declic_invoke_function__' is used
+        if '__declic_invoke_function__' in [action.dest for action in self.parser._actions]:
+            raise Exception('"__declic_invoke_function__" is a reserved argument')
+
         # specify which function to call depending on args parsing
-        self.parser.set_defaults(func=self.invoke)
+        self.parser.set_defaults(__declic_invoke_function__=self.invoke)
 
     @CachedProperty
     def parents(self):
@@ -148,7 +152,7 @@ class Command(object):
 
     def main(self, argv=None):
         args = self.parser.parse_args(argv)
-        args.func(args)
+        args.__declic_invoke_function__(args)
 
     def print_help(self):
         self.parser.print_help()
