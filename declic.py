@@ -157,7 +157,7 @@ class Command(object):
         # if chain mode is activated, call parents callbacks before command callback itself
         for parent in self.parents:
             # for each parent, call the on_before function if any
-            if parent.on_before is not None:
+            if parent._on_before is not None:
                 parent.on_before(args_dict)
             # then call the callback function if chain mode is activated and if the parent is invokable
             if parent._callback is not None:
