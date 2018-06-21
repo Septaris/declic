@@ -6,9 +6,13 @@ ROOT_DIR = path.abspath(path.dirname(__file__))
 with open(path.join(ROOT_DIR, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
+test_requirements = ['pytest==3.6.2']
+
 setup(
     name='declic',
-    version='1.0.1',
+    version='1.0.2',
+    setup_requires=['pytest-runner', ],
+    tests_require = test_requirements,
     py_modules=['declic'],
     url='https://github.com/Septaris/declic',
     license='MIT',
