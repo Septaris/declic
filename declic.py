@@ -151,9 +151,7 @@ class Command(object):
     def on_before(self, args_dict):
         self.generic_callback(args_dict, self._on_before)
 
-    def invoke(self, args):
-        args_dict = vars(args)
-
+    def invoke_parents(self, args_dict):
         # if chain mode is activated, call parents callbacks before command callback itself
         for parent in self.parents:
             # for each parent, call the on_before function if any
@@ -163,6 +161,11 @@ class Command(object):
             if parent._callback is not None:
                 if self.chain and parent.invokable:
                     parent.callback(args_dict)
+
+    def invoke(self, args):
+        args_dict = vars(args)
+
+        self.invoke_parents(args_dict)
 
         if self._callback is None:
             raise NotImplementedError(f'No callback function set for the command "{self.name}"')
@@ -192,12 +195,25 @@ class Group(Command):
         # even if the group is not invokable
         self._on_before = on_before
 
+    def invoke_group(self, args_dict):
+
+        if self._callback is None:
+            raise NotImplementedError(f'No callback function set for the command "{self.name}"')
+        else:
+            self.callback(args_dict)
+
     def invoke(self, args):
+        args_dict = vars(args)
+
+        # check chain attribute and invoke parents if any
+        self.invoke_parents(args_dict)
+
+        # call on_before function
         if self._on_before is not None:
-            self.on_before(vars(args))
+            self.on_before(args_dict)
 
         if self.invokable:
-            super().invoke(args)
+            self.invoke_group(args_dict)
         else:
             self.print_help()
 
