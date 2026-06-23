@@ -6,7 +6,7 @@ ROOT_DIR = path.abspath(path.dirname(__file__))
 with open(path.join(ROOT_DIR, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
-test_requirements = ['pytest==3.6.2']
+test_requirements = ['pytest==9.0.3']
 
 setup(
     name='declic',
